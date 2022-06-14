@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="PaketniUvozObrazaca_V1_0" targetNamespace="urn:PaketniUvozObrazaca_V1_0.xsd" elementFormDefault="qualified" xmlns="urn:PaketniUvozObrazaca_V1_0.xsd" xmlns:mstns="urn:PaketniUvozObrazaca_V1_0.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="type_PrihodiPoreziDoprinosi">
+    <xs:sequence>
+      <xs:element name="VrstaIsplate" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="Jmb" type="type_JMB" minOccurs="0" maxOccurs="1" />
+      <xs:element name="ImePrezime" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="DatumIsplate" type="xs:date" minOccurs="0" maxOccurs="1" />
+      <xs:element name="RadniSati" type="type_Hours" minOccurs="0" maxOccurs="1" />
+      <xs:element name="RadniSatiBolovanje" type="type_Hours" minOccurs="0" maxOccurs="1" />
+      <xs:element name="BrutoPlaca" type="type_Money" maxOccurs="1" minOccurs="0" />
+      <xs:element name="KoristiIDrugiOporeziviPrihodi" type="type_Money" maxOccurs="1" minOccurs="0" />
+      <xs:element name="UkupanPrihod" type="type_Money" maxOccurs="1" minOccurs="0" />
+      <xs:element name="IznosPIO" type="type_Money" maxOccurs="1" minOccurs="0" />
+      <xs:element name="IznosZO" type="type_Money" maxOccurs="1" minOccurs="0" />
+      <xs:element name="IznosNezaposlenost" type="type_Money" maxOccurs="1" minOccurs="0" />
+      <xs:element name="Doprinosi" type="type_Money" maxOccurs="1" minOccurs="0" />
+      <xs:element name="PrihodUmanjenZaDoprinose" type="type_Money" maxOccurs="1" minOccurs="0" />
+      <xs:element name="FaktorLicnogOdbitka" type="type_Koeficijent" maxOccurs="1" minOccurs="0" />
+      <xs:element name="IznosLicnogOdbitka" type="type_Money" maxOccurs="1" minOccurs="0" />
+      <xs:element name="OsnovicaPoreza" type="type_Money" maxOccurs="1" minOccurs="0" />
+      <xs:element name="IznosPoreza" type="type_Money" maxOccurs="1" minOccurs="0" />
+      <xs:element name="RadniSatiUT" type="type_Hours" maxOccurs="1" minOccurs="0" />
+      <xs:element name="StepenUvecanja" type="xs:int" maxOccurs="1" minOccurs="0" />
+      <xs:element name="SifraRadnogMjestaUT" type="xs:string" maxOccurs="1" minOccurs="0" />
+      <xs:element name="DoprinosiPIOMIOzaUT" type="type_Money" maxOccurs="1" minOccurs="0" />
+      <xs:element name="BeneficiraniStaz" type="xs:boolean" maxOccurs="1" minOccurs="0" />
+      <xs:element name="OpcinaPrebivalista" type="xs:string" maxOccurs="1" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="type_Money">
+    <xs:restriction base="xs:decimal">
+      <xs:fractionDigits value="2" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="type_JMB">
+    <xs:restriction base="xs:string">
+      <xs:length value="13" />
+      <xs:pattern value="[0-9]{13}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="type_Hours">
+    <xs:restriction base="xs:decimal">
+      <xs:fractionDigits value="2" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="type_Koeficijent">
+    <xs:restriction base="xs:decimal">
+      <xs:fractionDigits value="3" />
+      <xs:totalDigits value="5" />
+      <xs:maxInclusive value="99.999" />
+      <xs:minInclusive value="0.000" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="type_Operacija">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Prijava_od_strane_poreznog_obveznika" />
+      <xs:enumeration value="Prijava_u_ime_poreznog_obveznika" />
+      <xs:enumeration value="Izmjena" />
+      <xs:enumeration value="Izmjenjena_prijava_poreske_uprave" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="type_Period">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="((0[1-9])|(1[02]))/\d{4}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="type_Dokument">
+    <xs:sequence>
+      <xs:element name="BrojDokumenta" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation />
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Sluzbenik" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="Operacija" type="type_Operacija" minOccurs="0" maxOccurs="1" />
+      <xs:element name="DatumPrijema" type="xs:date" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="type_Izjava">
+    <xs:sequence>
+      <xs:element name="JibJmbPoslodavca" type="type_JMB" minOccurs="0" maxOccurs="1" />
+      <xs:element name="DatumUnosa" type="xs:date" minOccurs="0" maxOccurs="1" />
+      <xs:element name="NazivPoslodavca" type="xs:string" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PaketniUvozObrazaca">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="PodaciOPoslodavcu" maxOccurs="1" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="JIBPoslodavca" type="type_JMB" maxOccurs="1" minOccurs="0" />
+              <xs:element name="NazivPoslodavca" type="xs:string" maxOccurs="1" minOccurs="0" />
+              <xs:element name="BrojZahtjeva" type="xs:int" maxOccurs="1" minOccurs="0" />
+              <xs:element name="DatumPodnosenja" type="xs:date" maxOccurs="1" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Obrazac1023" maxOccurs="1" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Dio1" maxOccurs="1" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="JibJmb" type="type_JMB" maxOccurs="1" minOccurs="0" />
+                    <xs:element name="Naziv" type="xs:string" maxOccurs="1" minOccurs="0" />
+                    <xs:element name="DatumUpisa" type="xs:date" maxOccurs="1" minOccurs="0" />
+                    <xs:element name="BrojUposlenih" type="xs:int" maxOccurs="1" minOccurs="0" />
+                    <xs:element name="PeriodOd" type="xs:date" maxOccurs="1" minOccurs="0" />
+                    <xs:element name="PeriodDo" type="xs:date" maxOccurs="1" minOccurs="0" />
+                    <xs:element name="SifraDjelatnosti" type="xs:string" maxOccurs="1" minOccurs="0" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Dio2" maxOccurs="1" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="PodaciOPrihodima" type="type_PrihodiPoreziDoprinosi" minOccurs="0" maxOccurs="unbounded" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Dio3" maxOccurs="1" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="PIO" type="type_Money" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="ZO" type="type_Money" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="OsiguranjeOdNezaposlenosti" type="type_Money" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="DodatniDoprinosiZO" type="type_Money" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="Prihod" type="type_Money" maxOccurs="1" minOccurs="0" />
+                    <xs:element name="Doprinosi" type="type_Money" maxOccurs="1" minOccurs="0" />
+                    <xs:element name="LicniOdbici" type="type_Money" maxOccurs="1" minOccurs="0" />
+                    <xs:element name="Porez" type="type_Money" maxOccurs="1" minOccurs="0" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Dio4IzjavaPoslodavca" maxOccurs="1" minOccurs="0" type="type_Izjava" />
+              <xs:element name="Dokument" maxOccurs="1" minOccurs="0" type="type_Dokument" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
